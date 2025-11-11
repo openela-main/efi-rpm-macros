@@ -1,7 +1,7 @@
 Summary: Common RPM Macros for building EFI-related packages
 Name: efi-rpm-macros
 Version: 6
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 URL: https://github.com/rhboot/%{name}/
 BuildRequires: git sed
@@ -66,9 +66,17 @@ git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86}"
 %verify(not mode) %dir /boot/efi/EFI/%{_efi_vendor_}
 
 %changelog
-* Thu Apr 14 2022 Peter Jones <pjones@redhat.com> - 6-1
-- Disable ia32 as an alt for x86_64
-  Related: rhbz#1932057
+* Tue Mar 4 2025 Nicolas Frayer <nfrayer@redhat.com> - 6.4
+- Bump release
+- Related: #RHELMISC-9574
+
+* Mon Jul 29 2024 Nicolas Frayer <nfrayer@redhat.com> - 6-3
+- Bump release
+- Related: #RHEL-50842
+
+* Mon Jul 29 2024 Nicolas Frayer <nfrayer@redhat.com> - 6-2
+- Picked 9b9b4c7dde2e and 32cfff131279 from rhel 9.0 to update nvr
+- Resolves: #RHEL-50842
 
 * Mon Nov 08 2021 Robbie Harwood <rharwood@redhat.com> - 4-9
 - Ignore the mode bits when doing RPM verification of files in /boot/efi

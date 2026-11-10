@@ -1,7 +1,7 @@
 Summary: Common RPM Macros for building EFI-related packages
 Name: efi-rpm-macros
 Version: 6
-Release: 6%{?dist}
+Release: 8%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/rhboot/%{name}/
 BuildRequires: git sed
@@ -9,6 +9,7 @@ BuildRequires: make
 BuildArch: noarch
 
 Source0: https://github.com/rhboot/%{name}/releases/download/%{version}/%{name}-6.tar.bz2
+Patch0001: 0001-add-riscv64-support.patch
 
 %global debug_package %{nil}
 %global _efi_vendor_ %(eval echo $(sed -n -e 's/rhel/redhat/' -e 's/^ID=//p' /etc/os-release))
@@ -37,7 +38,7 @@ machine bootloaders and tools.
 %autosetup -S git_am -n %{name}-6
 git config --local --add efi.vendor "%{_efi_vendor_}"
 git config --local --add efi.esp-root /boot/efi
-git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86}"
+git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86} riscv64"
 
 %build
 %make_build clean all
@@ -66,6 +67,14 @@ git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86}"
 %dir /boot/efi/EFI/%{_efi_vendor_}
 
 %changelog
+* Fri Apr 04 2025 Kashyap Chamarthy <kchamart@redhat.com> - 6-8
+- Add riscv64 to EFI architectures
+- Related: #RHEL-83387
+
+* Thu Mar 27 2025 Nicolas Frayer <nfrayer@redhat.com> - 6-7
+- Add riscv64 support
+- Resolves: #RHEL-83387
+
 * Thu Dec 12 2024 Nicolas Frayer <nfrayer@redhat.com> - 6-6
 - Bump release for previous commit
 - Related: #RHELMISC-8249
